@@ -1,132 +1,109 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <!-- My Style -->
-    <link rel="stylesheet" href="css/style.css">
-
-    <!-- Font Style -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <title> Web Portofolio || Rayhan Siregar</title>
-  </head>
-  <body>
-    <!--Navbar-->
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent mt-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-8 offset-1">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                          <a class="nav-link active me-3" aria-current="page" href="#">HOME</a>
-                          <a class="nav-link me-3" href="#">PORTOFOLIO</a>
-                          <a class="nav-link me-3" href="#">BLOG</a>
-                          <a class="nav-link me-3" href="#">CONTACT</a>
-                         
-                        </div>
-                      </div>
-                </div>
-            </div>
-          
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Makanan</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div class="menu-toggle" onclick="toggleMenu()">Menu Makanan</div>
         
-        </div>
-      </nav>
-   
-      <!-- Section Hero-->
-       <section id="hero">
-        <div class="container">
-            <div class="row">
-                <div class="col-5 offset-1 my-auto">
-                    <h2>Hallo, Welcome To My Portofolio</h2>
-                    <h1 class="fw-bold">  I Am Muhammad Rayhan Siregar</h1>
-                    <p>Saya adalah mahasiswa D3 Teknik Informatika
-                        angkatan 2023 di <span class="fw-bold color-acsent"> Universitas Sumatera Utara</span>
-                    </p>
-                    
-                    <div class="Social-icon position-absolute bottom-0">
-                        <!--Instagram-->
-                      <p class="contact color-acsent fw-bold">Contact Me</p>
-                      <a href="https://wa.me/089508505031"> 
-                        <img src="img/whatsapp.png" width="30" height="30" alt=""> </a> 
-                        <a href="https://www.instagram.com/rayhan_srg23">
-                            <img src="img/instagram.png"  width="30" height="30"  alt=""> </a>
-                            <a href="https://github.com/rayhan2311-art">
-                                <img src="img/github.png" width="30" height="30" alt="">
-                            </a>
-
-
-                     
-                    </div>
-                </div>
-                <div class="col-5 image">
-                    <img src="img/rayhan foto.jpg" width="90%"  class="float-end" alt="">
-                </div>
+        <div id="menu" class="menu" style="display: none;">
+            <div class="menu-item">
+                <h2>Nasi Goreng</h2>
+                <p>Rp 25.000</p>
+                <input type="number" id="qty-nasi-goreng" min="1" value="1">
+                <button onclick="addToOrder('Nasi Goreng', 25000, 'qty-nasi-goreng')">Pesan</button>
+            </div>
+            <div class="menu-item">
+                <h2>Mie Ayam</h2>
+                <p>Rp 20.000</p>
+                <input type="number" id="qty-mie-ayam" min="1" value="1">
+                <button onclick="addToOrder('Mie Ayam', 20000, 'qty-mie-ayam')">Pesan</button>
+            </div>
+            <div class="menu-item">
+                <h2>Sate Ayam</h2>
+                <p>Rp 30.000</p>
+                <input type="number" id="qty-sate-ayam" min="1" value="1">
+                <button onclick="addToOrder('Sate Ayam', 30000, 'qty-sate-ayam')">Pesan</button>
             </div>
         </div>
-       </section>
-<!--About Me-->
-       <section id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-5 offset-1 my-auto">
-                    <h1 class="fw-bold">About Me</h1>
-                    <p>Merupakan mahasiswa D3 Teknik Informatika Fakultas Vokasi Universitas Sumatera Utara.<br>
-                    Menguasai beberapa bahasa pemrograman seperti python, c, HTML dan CSS<br> </p>
-                </div>
-                <div class="col-5 my-auto">
-                    <h1 class="fw-bold">Informasi Pribadi </h1>
-                    <p>Nama : Muhammad Rayhan Siregar<br>
-                    TTL: Medan 23 Mei 2005<br>
-                Alamat: Jalan Sunggal GG Taqwa<br>
-                Keahlian : HTML dan CSS
-            </p>
-                </div>
-            </div>
+        
+        <div id="order" class="order-section">
+            <h2>Pesanan Anda</h2>
+            <ul id="order-list"></ul>
+            <input type="text" id="customer-name" placeholder="Nama Anda">
+            <input type="text" id="customer-contact" placeholder="Kontak" oninput="validateContact()">
+            <span id="contact-error" style="color: red; display: none;">Harap isi dengan nomor telepon Anda</span>
+            <button onclick="submitOrder()">Kirim Pesanan</button>
         </div>
-       </section>
+    </div>
+    
+    <script>
+        let order = [];
 
-       <section id="Keahlian">
-        <div class="container">
-            <h1 class="skill">SKILLS</h1>
-            <div class="box">
-                <h1>UI/UX <br>
-                    Designer</h1>
-                <img class="gambar" src="img/design.png" alt="">
-            </div>
-            <div class="box">
-                <h1>Frontend Developer</h1>
-               <img class="gambar" src="img/web-design.png" alt="">
-            </div>
-            <div class="box">
-                <h1>Backend Developer</h1>
-               <img  src="img/back end.png" width="60%" alt="">
-            </div>
-           
-        </div>
-       </section>
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.style.display = menu.style.display === "none" ? "block" : "none";
+        }
 
+        function addToOrder(name, price, qtyId) {
+            const quantity = parseInt(document.getElementById(qtyId).value);
+            if (quantity <= 0 || isNaN(quantity)) {
+                alert("Masukkan jumlah yang valid!");
+                return;
+            }
+            order.push({ name, price, quantity });
+            updateOrderList();
+        }
 
-    <!-- Optional JavaScript; choose one of the two! -->
+        function updateOrderList() {
+            const orderList = document.getElementById("order-list");
+            orderList.innerHTML = "";
+            order.forEach(item => {
+                const li = document.createElement("li");
+                li.textContent = `${item.quantity}x ${item.name} - Rp ${(item.price * item.quantity).toLocaleString()}`;
+                orderList.appendChild(li);
+            });
+        }
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        function validateContact() {
+            const contactField = document.getElementById("customer-contact");
+            const contactError = document.getElementById("contact-error");
+            if (!/^[0-9]*$/.test(contactField.value)) {
+                contactError.style.display = "block";
+                contactField.value = contactField.value.replace(/\D/g, '');
+            } else {
+                contactError.style.display = "none";
+            }
+        }
 
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-  </body>
+        function submitOrder() {
+            const name = document.getElementById("customer-name").value;
+            const contact = document.getElementById("customer-contact").value;
+            
+            if (!name || !contact) {
+                alert("Harap isi nama dan kontak!");
+                return;
+            }
+
+            const orderText = order.map(o => `- ${o.quantity}x ${o.name} (Rp ${(o.price * o.quantity).toLocaleString()})`).join("%0A");
+            const message = `Halo, ${name} ingin memesan:%0A${orderText}%0A%0ANama: ${name}%0AKontak: ${contact}`;
+            
+            const phoneNumber = "6285760186335"; 
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+            
+            window.open(whatsappURL, "_blank");
+
+            order = [];
+            updateOrderList();
+            document.getElementById("customer-name").value = "";
+            document.getElementById("customer-contact").value = "";
+        }
+    </script>
+    
+</body>
 </html>
