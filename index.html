@@ -5,33 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pemesanan Makanan</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
     <div class="container">
         <div class="menu-toggle" onclick="toggleMenu()">Menu Makanan</div>
-        
+
         <div id="menu" class="menu" style="display: none;">
             <div class="menu-item">
+                <img src="nasi-goreng.jpg" alt="Nasi Goreng" class="menu-image">
                 <h2>Nasi Goreng</h2>
                 <p>Rp 25.000</p>
                 <input type="number" id="qty-nasi-goreng" min="1" value="1">
                 <button onclick="addToOrder('Nasi Goreng', 25000, 'qty-nasi-goreng')">Pesan</button>
             </div>
             <div class="menu-item">
+                <img src="mie-ayam.jpg" alt="Mie Ayam" class="menu-image">
                 <h2>Mie Ayam</h2>
                 <p>Rp 20.000</p>
                 <input type="number" id="qty-mie-ayam" min="1" value="1">
                 <button onclick="addToOrder('Mie Ayam', 20000, 'qty-mie-ayam')">Pesan</button>
             </div>
             <div class="menu-item">
+                <img src="sate-ayam.jpg" alt="Sate Ayam" class="menu-image">
                 <h2>Sate Ayam</h2>
                 <p>Rp 30.000</p>
                 <input type="number" id="qty-sate-ayam" min="1" value="1">
                 <button onclick="addToOrder('Sate Ayam', 30000, 'qty-sate-ayam')">Pesan</button>
             </div>
         </div>
-        
+
         <div id="order" class="order-section">
             <h2>Pesanan Anda</h2>
             <ul id="order-list"></ul>
@@ -41,7 +43,7 @@
             <button onclick="submitOrder()">Kirim Pesanan</button>
         </div>
     </div>
-    
+
     <script>
         let order = [];
 
@@ -63,11 +65,29 @@
         function updateOrderList() {
             const orderList = document.getElementById("order-list");
             orderList.innerHTML = "";
-            order.forEach(item => {
+            order.forEach((item, index) => {
                 const li = document.createElement("li");
                 li.textContent = `${item.quantity}x ${item.name} - Rp ${(item.price * item.quantity).toLocaleString()}`;
+                
+                // Tombol hapus untuk setiap item
+                const deleteButton = document.createElement("button");
+                deleteButton.textContent = "Hapus";
+                deleteButton.style.backgroundColor = "#ff5722";
+                deleteButton.style.color = "#fff";
+                deleteButton.style.border = "none";
+                deleteButton.style.padding = "5px 10px";
+                deleteButton.style.marginLeft = "10px";
+                deleteButton.style.cursor = "pointer";
+                deleteButton.onclick = () => removeItemFromOrder(index);
+
+                li.appendChild(deleteButton);
                 orderList.appendChild(li);
             });
+        }
+
+        function removeItemFromOrder(index) {
+            order.splice(index, 1);
+            updateOrderList();
         }
 
         function validateContact() {
@@ -84,7 +104,7 @@
         function submitOrder() {
             const name = document.getElementById("customer-name").value;
             const contact = document.getElementById("customer-contact").value;
-            
+
             if (!name || !contact) {
                 alert("Harap isi nama dan kontak!");
                 return;
@@ -92,18 +112,16 @@
 
             const orderText = order.map(o => `- ${o.quantity}x ${o.name} (Rp ${(o.price * o.quantity).toLocaleString()})`).join("%0A");
             const message = `Halo, ${name} ingin memesan:%0A${orderText}%0A%0ANama: ${name}%0AKontak: ${contact}`;
-            
-            const phoneNumber = "6285760186335"; 
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
-            
-            window.open(whatsappURL, "_blank");
 
+            const phoneNumber = "6285760186335";
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
+
+            window.open(whatsappURL, "_blank");
             order = [];
             updateOrderList();
             document.getElementById("customer-name").value = "";
             document.getElementById("customer-contact").value = "";
         }
     </script>
-    
 </body>
 </html>
