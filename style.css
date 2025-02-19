@@ -1,6 +1,8 @@
 /* Mengatur warna dasar dan font */
 body {
-    background-color: #121212;
+    background: image-set(url(image/background.jpg));
+    background-size: auto;
+    background-attachment: fixed;
     color: #ffffff;
     font-family: Arial, sans-serif;
     margin: 0;
@@ -48,16 +50,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Menambahkan border oranye pada gambar */
-.menu-item img {
-    width: 100%;
-    max-width: 250px; /* Atur ukuran maksimum gambar */
-    height: auto;
-    border-radius: 8px;
-    border: 2px solid #ff6f00; /* Border oranye */
-    margin-bottom: 10px;
-}
-
 /* Tombol Pesan */
 button {
     background-color: #ff6f00;
@@ -87,7 +79,7 @@ button:hover {
 
 /* Input Nama dan Kontak */
 input {
-    width: 90%;
+    width: 9%;
     padding: 10px;
     margin: 10px 0;
     border: 1px solid rgba(255, 255, 255, 0.4);
@@ -123,7 +115,7 @@ input {
     animation: glow 1.5s infinite alternate;
 }
 
-/* Tombol toggle menu */
+
 .menu-toggle {
     display: block;
     width: 200px;
@@ -144,4 +136,21 @@ input {
 .menu-toggle:hover {
     background: linear-gradient(145deg, #e64a19, #ff7043);
     box-shadow: 0 0 25px rgba(255, 87, 34, 1);
+}
+
+
+input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+img{
+    width: 150px;
+    height: 120px;
+    border: 2px solid #ff7043;
+    animation: glow 2s infinite ;
 }
